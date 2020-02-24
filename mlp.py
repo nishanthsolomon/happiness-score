@@ -1,23 +1,18 @@
-import pandas as pd
-import numpy as np
-from sklearn.linear_model import LinearRegression
 from sklearn.neural_network import MLPRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-from math import sqrt
 
-import matplotlib.pyplot as plt
 
-train_data = pd.read_csv('./dataset/train.csv', delimiter = ',')
+class MLPHappinessScore():
+    def __init__(self, config):
+        hidden_layer_size = int(config['hidden_layer_size'])
+        activation = config['activation']
+        solver = config['solver']
+        max_iter = int(config['max_iter'])
+        batch_size = int(config['batch_size'])
+        self.mlp = MLPRegressor(hidden_layer_sizes=(hidden_layer_size), activation=activation, solver=solver, max_iter=max_iter, batch_size=batch_size)
+    
+    def train(self, x, y):
+        self.mlp.fit(x,y)
 
-y = train_data['happiness_score']
-x = train_data[['gdp','life_expectancy','freedom','generosity','corruption']]
-
-mlp = MLPRegressor(hidden_layer_sizes=(1000), activation='relu', solver='lbfgs', max_iter=100, batch_size=10)
-mlp.fit(x,y)
-
-y_pred = mlp.predict(x)
-
-rms = sqrt(mean_squared_error(y, y_pred))
-
-print('Root Mean Square Error using multi layer perceptron = ' + str(rms))
+    def predict(self, x):
+        y_predicted = self.mlp.predict(x)
+        return y_predicted
