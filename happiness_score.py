@@ -18,7 +18,7 @@ class HappinessScore():
         mlp_config = config['mlp']
 
         train_data = pd.read_csv(data_config['train_data_path'], delimiter = data_config['delimiter'])
-        test_data = pd.read_csv(data_config['train_data_path'], delimiter = data_config['delimiter'])
+        test_data = pd.read_csv(data_config['test_data_path'], delimiter = data_config['delimiter'])
 
         output_label = data_config['output_label']
         feature_labels = data_config['feature_labels'].split(',')
